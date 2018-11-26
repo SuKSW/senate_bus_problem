@@ -3,14 +3,16 @@ import java.util.Random;
 public class ExpDistNumberGen {
     private Random random;
     private int mean;
+    private int max;
 
-    public ExpDistNumberGen(int mean) {
+    public ExpDistNumberGen(int mean, int max) {
         random = new Random();
         this.mean = mean;
+        this.max = max;
     }
 
     public long getNext() {
-        int lambda = 1/mean;
-        return  (long) Math.log(1-random.nextLong())/(-lambda);
+        float lambda = (float) 1/mean;
+        return  Math.round(Math.log(1-random.nextDouble())/(-lambda))%max;
     }
 }
